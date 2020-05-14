@@ -13,7 +13,10 @@ import { LEGACY_OPENCERTS_RENDERER } from "../../config";
 import styles from "./decentralisedRenderer.scss";
 import MultiTabs from "../MultiTabs";
 import { updateObfuscatedCertificate as updateObfuscatedCertificateAction } from "../../reducers/certificate";
-import { analyticsEvent } from "../Analytics";
+import {
+  analyticsEvent,
+  sendEventCertificateViewedDetailed
+} from "../Analytics";
 
 export const DecentralisedRenderer = ({
   rawDocument,
@@ -75,6 +78,10 @@ export const DecentralisedRenderer = ({
         ? storeAddresses.join(",")
         : storeAddresses,
       label: certificateData ? certificateData.id : null
+    });
+
+    certificateData.issuers.forEach(issuer => {
+      sendEventCertificateViewedDetailed({ issuer, certificateData });
     });
   }, [rawDocument]);
 

@@ -1,5 +1,5 @@
 import { stub } from "sinon";
-import { analyticsEvent, stringifyEvent, validateEvent } from "./index";
+import { analyticsEvent, validateEvent } from "./index";
 
 const evt = {
   category: "TEST_CATEGORY",
@@ -7,15 +7,6 @@ const evt = {
   label: "TEST_LABEL",
   value: 2
 };
-
-describe("stringifyEvent", () => {
-  it("prints the event", () => {
-    const evtString = stringifyEvent(evt);
-    expect(evtString).toBe(
-      "Category*: TEST_CATEGORY, Action*: TEST_ACTION, Label: TEST_LABEL, Value: 2"
-    );
-  });
-});
 
 describe("validateEvent", () => {
   it("throws if category is missing", () => {
